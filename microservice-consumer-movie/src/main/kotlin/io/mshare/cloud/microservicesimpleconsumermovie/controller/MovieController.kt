@@ -5,6 +5,7 @@ import org.apache.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -19,6 +20,9 @@ class MovieController {
     @Autowired
     private lateinit var restTemplate: RestTemplate
 
+    @Autowired
+    private lateinit var loadBalancerClient: LoadBalancerClient
+
     @Value("\${user.userServiceUrl}")
     private lateinit var userServiceUrl: String
 
@@ -31,5 +35,13 @@ class MovieController {
         // 需要 配合 @LoadBalanced
         return restTemplate.getForObject("http://MICROSERVICE-PROVIDER-USER/{1}", User::class.java, id)
     }
+
+
+    @GetMapping("/log-instance")
+    fun logUserInstance(): String {
+        val instance = loadBalancerClient.choose("MICROSERVICE-PROVIDER-USER")
+        return "${instance.serviceId} ${instance.host} ${instance.port}"
+    }
+
 
 }
