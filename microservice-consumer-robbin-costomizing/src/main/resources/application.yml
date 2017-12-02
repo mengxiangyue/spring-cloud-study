@@ -1,0 +1,27 @@
+server:
+  port: 8010
+
+username: user
+password: password
+
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://${username}:${password}@localhost:8761/eureka/, http://${username}:${password}@localhost:8762/eureka/
+  instance:
+    prefer-ip-address: true
+
+user.userServiceUrl: http://localhost:8000
+
+logging:
+  level: info
+
+
+spring:
+  application:
+    name: microservice-consumer-movie
+
+MICROSERVICE-PROVIDER-USER:
+  ribbon:
+    NFLoadBalancerClassName: com.netflix.loadbalancer.RandomRule
+
