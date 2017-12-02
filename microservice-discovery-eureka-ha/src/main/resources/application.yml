@@ -9,6 +9,8 @@ security:
     password: password
 
 
+username: user
+password: password
 
 # 是用不同的 profile 激活两个 Eureka 节点
 ---
@@ -21,9 +23,11 @@ eureka:
     register-with-eureka: false  # 是否将自己注册到 Eureka Server
     fetch-registry: false  # 是否从 Eureka Server 获取注册信息
     service-url:
-      defaultZone: http://localhost:8762/eureka/
+      defaultZone: http://${username}:${password}@localhost:8762/eureka/
   instance:
     hostname: peer1
+  server:
+    eviction-interval-timer-in-ms: 5000
 
 
 ---
@@ -36,7 +40,7 @@ eureka:
     register-with-eureka: false  # 是否将自己注册到 Eureka Server
     fetch-registry: false  # 是否从 Eureka Server 获取注册信息
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://${username}:${password}@localhost:8761/eureka/
   instance:
     hostname: peer2
 
