@@ -2,6 +2,8 @@ spring:
   application:
     name: microservice-discovery-eureka-ha
 
+
+# 是用不同的 profile 激活两个 Eureka 节点
 ---
 spring:
   profiles: peer1
