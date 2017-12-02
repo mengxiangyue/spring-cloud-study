@@ -1,0 +1,36 @@
+server:
+  port: 8000
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    platform: h2
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+
+logging:
+  level: info
+  org.hibernate: info
+  org.hibernate.type.descriptor.sql.BasicBinder: trace
+  org.hibernate.type.descriptor.sql.BasicExtractor: trace
+
+# actuator 一些端点能够访问需要进行配置
+endpoints:
+  health:
+    enabled: true
+    sensitive: false  # 是否开启验证
+  metrics:
+    enabled: true
+    sensitive: false
+  beans:
+    enabled: true
+    sensitive: false
+  autoconfig:
+    enabled: true
+    sensitive: false
+
+
