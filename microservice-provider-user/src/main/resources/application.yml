@@ -36,10 +36,14 @@ endpoints:
     enabled: true
     sensitive: false
 
+# eureka 配置了用户认证以后 需要修改 eureka 注册地址
+username: user
+password: password
+
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/
+      defaultZone: http://${username}:${password}@localhost:8761/eureka/, http://${username}:${password}@localhost:8762/eureka/
   instance:
     prefer-ip-address: true
 

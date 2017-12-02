@@ -1,6 +1,13 @@
 spring:
   application:
     name: microservice-discovery-eureka-ha
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: password
+
 
 
 # 是用不同的 profile 激活两个 Eureka 节点
